@@ -1,0 +1,24 @@
+# Python virtual environment
+venv/
+.venv/
+env/
+*.pyc
+
+# Django/DB specific files
+db.sqlite3
+media/
+static/
+
+# IDE files
+.idea/
+.vscode/
+
+# Security/Secrets
+# CRITICAL: Prevents your SECRET_KEY and other sensitive settings from being committed
+api_project/settings_local.py
+# If you add local config, ignore it.
+*.env
+
+# Python build artifacts
+dist/
+build/
