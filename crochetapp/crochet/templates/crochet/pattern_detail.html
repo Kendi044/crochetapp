@@ -1,0 +1,81 @@
+{% extends "crochet/base.html" %}
+{% block title %}{{ pattern.title }} — CrochetApp{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-12 col-lg-8">
+    <div class="card-glass mb-4">
+      <h2 class="pattern-title">{{ pattern.title }}</h2>
+      <div class="muted small mb-2">By {{ pattern.user.username }} • {{ pattern.created_at|date:"M j, Y" }}</div>
+
+      <h5 class="mt-3">Description</h5>
+      <p>{{ pattern.description|linebreaksbr }}</p>
+
+      <h5 class="mt-3">Instructions</h5>
+      <pre style="white-space:pre-wrap; font-family:inherit;">{{ pattern.instructions }}</pre>
+
+      <div class="d-flex gap-2 mt-3">
+        <div class="badge bg-light text-dark">{{ pattern.difficulty_level }}</div>
+        <div class="badge bg-light text-dark">{% if pattern.is_public %}Public{% else %}Private{% endif %}</div>
+      </div>
+    </div>
+
+    <div class="card-glass mb-4">
+      <h5>Materials</h5>
+      <ul>
+        {% for pm in pattern.required_materials.all %}
+          <li>{{ pm.quantity }} — {{ pm.material.name }} ({{ pm.material.get_type_display }})</li>
+        {% empty %}
+          <li class="muted">No materials listed.</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="card-glass mb-4">
+      <h5>Stitches used</h5>
+      <div>
+        {% for ps in pattern.used_stitches.all %}
+          <span class="badge bg-light text-dark me-1">{{ ps.stitch_type.abbreviation }}</span>
+        {% empty %}
+          <div class="muted">No stitches listed.</div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="card-glass mb-4">
+      <h5>Comments ({{ pattern.comments.count }})</h5>
+
+      {% for comment in pattern.comments.all %}
+      <div class="mb-3">
+        <div class="muted small">{{ comment.author.username }} • {{ comment.created_at|date:"M j, Y H:i" }}</div>
+        <div>{{ comment.content|linebreaksbr }}</div>
+      </div>
+      {% empty %}
+      <p class="muted">No comments yet — be the first!</p>
+      {% endfor %}
+
+      {% if user.is_authenticated %}
+      <form id="comment-form" method="post" action="{% url 'add_comment' pattern.id %}">
+        {% csrf_token %}
+        <div class="mb-2">
+          <textarea name="content" class="form-control" rows="3" placeholder="Write a helpful comment..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-sm">Post comment</button>
+      </form>
+      {% else %}
+      <p><a href="{% url 'login' %}">Login</a> to post a comment.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="col-12 col-lg-4">
+    <div class="card-glass">
+      <h6>About this pattern</h6>
+      <p class="muted small">Created: {{ pattern.created_at|date:"M j, Y" }}<br>
+      Updated: {{ pattern.updated_at|date:"M j, Y" }}</p>
+      <a href="{% url 'patterns_list' %}" class="btn btn-outline-secondary btn-sm">Back to list</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

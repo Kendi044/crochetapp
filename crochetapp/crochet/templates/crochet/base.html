@@ -1,33 +1,109 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Django Blog{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{% block title %}Crochet App{% endblock %}</title>
+
+  <!-- Bootstrap (optional) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    /* Full-page blurred yarn background */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      position: relative;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color: #222;
+    }
+
+    .bg-blur {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      overflow: hidden;
+    }
+
+    .bg-blur::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("{% static 'images/yarn.jpg' %}");
+      background-size: cover;
+      background-position: center;
+      filter: blur(10px) saturate(110%);
+      transform: scale(1.05);
+      opacity: 0.85;
+      z-index: -1;
+    }
+
+    /* overlay to improve contrast */
+    .bg-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,0.6);
+      z-index: -1;
+      mix-blend-mode: normal;
+    }
+
+    /* content card style so text is readable */
+    .content-wrap {
+      padding: 3rem 1rem;
+    }
+
+    .card-glass {
+      background: rgba(255,255,255,0.85);
+      border-radius: 14px;
+      padding: 1.25rem;
+      box-shadow: 0 6px 20px rgba(20,20,20,0.08);
+      backface-visibility: hidden;
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+    }
+
+    .pattern-title { font-weight: 700; letter-spacing: 0.2px; }
+    .muted { color: #6b6b6b; }
+
+    /* responsive tweaks */
+    @media (min-width: 992px) {
+      .content-wrap { padding: 4rem 6rem; }
+    }
+  </style>
+
+  {% block head_extra %}{% endblock %}
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'posts' %}">Blog Posts</a></li>
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'register' %}">Register</a></li>
-            </ul>
-        </nav>
-    </header>
+  <div class="bg-blur"></div>
+  <div class="bg-overlay"></div>
 
-    <div class="content">
-        {% block content %}
-        <!-- Page-specific content goes here -->
-        {% endblock %}
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'patterns_list' %}">🧶 CrochetApp</a>
+      <div class="d-flex gap-2">
+        {% if user.is_authenticated %}
+          <span class="me-2">Hi, {{ user.username }}</span>
+          <a class="btn btn-outline-secondary btn-sm" href="{% url 'logout' %}">Logout</a>
+        {% else %}
+          <a class="btn btn-outline-primary btn-sm" href="{% url 'login' %}">Login</a>
+          <a class="btn btn-primary btn-sm" href="{% url 'register' %}">Register</a>
+        {% endif %}
+      </div>
     </div>
+  </nav>
 
-    <footer>
-        <p>&copy; 2024 Django Blog</p>
-    </footer>
+  <main class="content-wrap">
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
+  </main>
 
-    <script src="{% static 'js/scripts.js' %}"></script>
+  <footer class="text-center py-4 muted">
+    <small>Made with yarn and ❤️ — CrochetApp</small>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  {% block scripts %}{% endblock %}
 </body>
 </html>

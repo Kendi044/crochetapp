@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',  # ← add this
     'crochet',
+    'djoser',
 ]
 
 MIDDLEWARE = [
@@ -56,10 +58,11 @@ ROOT_URLCONF = 'crochetapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -67,6 +70,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'crochetapp.wsgi.application'
 
@@ -122,14 +126,42 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-TEMPLATES = [
-    {
-        'DIRS': [BASE_DIR / 'templates'],
-    },
-]
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DJOSER = {
+    # This setting controls how user accounts are activated.
+    # By setting it to 'none', Djoser will automatically set is_active=True
+    # upon registration, allowing the user to log in immediately without
+    # email verification.
+    'USER_ACTIVATION_METHOD': 'none',
+
+    # If you were using email verification, you would configure it here:
+    # 'SEND_ACTIVATION_EMAIL': False, # Setting this to False is good practice when using 'none'
+
+    # The fields Djoser will use for authentication (e.g., username or email)
+    # This must match the field name in your custom user model (if you have one).
+    'LOGIN_FIELD': 'username', # Or 'email', depending on your preference.
+
+    #'SERIALIZERS': {
+     #   'user_create': 'django.contrib.auth.custom_user_model.UserCreateSerializer',
+     #   'user': 'django.contrib.auth.custom_user_model.UserSerializer',
+    
+    # ... other Djoser settings you may have
+}
+
+# REST FRAMEWORK SETTINGS
+# ----------------------------------------------------------------------
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # Ensure Token Authentication is enabled for Djoser's login endpoint
+        'rest_framework.authentication.TokenAuthentication', 
+        # Standard SessionAuth for browser access (e.g., Django Admin)
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    # ... other DRF settings you may have
+}
+
