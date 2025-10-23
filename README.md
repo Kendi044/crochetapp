@@ -1,9 +1,11 @@
-Starting the creation of my app.           
+Starting the creation of my app.   CROCHETAPP API DJANGO PROJECT
+
 A RECIPE MANAGEMENT API, that helps creators to share their creation to crocheters who would like to get the skill or educate people interested with crocheting.
-1. User-authentication via Django REST Framework
-2. CRUD API for crochet patterns
-3. Endpoints for listing, retrieving, updating, and deleting patterns
-4. Example HTTP requests in test.http for quick testing
+   
+FEATURES:   1. User-authentication via Django REST Framework
+            2. CRUD API for crochet patterns
+            3. Endpoints for listing, retrieving, updating, and deleting patterns
+            4. Example HTTP requests in test.http for quick testing
 
       Project Structure
 crochetapp/
@@ -116,7 +118,7 @@ Authorization: Token 0e72bfe6571186ac8f5532376632882790a572b9
 DELETE http://127.0.0.1:8000/api/patterns/1/
 Authorization: Token 0e72bfe6571186ac8f5532376632882790a572b9
 
-
+API:
 GET	/api/patterns/	List all patterns
 POST	/api/patterns/	Create a new pattern
 GET	/api/patterns/<id>/	Retrieve a single pattern
@@ -134,9 +136,9 @@ Auth: Token Authentication
 Testing: test.http, Django’s test client
 
 
-1. Fork the repository
-2. Add the respective files and update them
-3. Commit your changes
-4. Open a Pull Request
+GITHUB: 1. Fork the repository
+        2. Add the respective files and update them
+        3. Commit your changes
+        4. Open a Pull Request
 
  Author= Rose Ngaamba
