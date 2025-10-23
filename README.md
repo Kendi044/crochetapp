@@ -7,7 +7,6 @@ FEATURES:   1. User-authentication via Django REST Framework
             3. Endpoints for listing, retrieving, updating, and deleting patterns
             4. Example HTTP requests in test.http for quick testing
 
-      Project Structure
 crochetapp/
 ├── crochet/
 │   ├── __pycache__/
@@ -44,7 +43,6 @@ crochetapp/
 ├── README.md
 └── .gitignore
 
-    Installation & Setup
 1. Clone the repository
 git clone https://github.com/yourusername/crochetapp.git
 cd crochetapp
