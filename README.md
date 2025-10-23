@@ -121,7 +121,6 @@ Authorization: Token 0e72bfe6571186ac8f5532376632882790a572b9
 DELETE http://127.0.0.1:8000/api/patterns/1/
 Authorization: Token 0e72bfe6571186ac8f5532376632882790a572b9
 
-  API Endpoints Overview
 
 GET	/api/patterns/	List all patterns
 POST	/api/patterns/	Create a new pattern
@@ -139,7 +138,7 @@ Auth: Token Authentication
 
 Testing: test.http, Django’s test client
 
-     GIT AND GITHUB CMDS
+
 1. Fork the repository
 2. Add the respective files and update them
 3. Commit your changes
