@@ -86,7 +86,7 @@ POST http://127.0.0.1:8000/api/logout/
 Content-Type: application/json
 Authorization: Token 0e72bfe6571186ac8f5532376632882790a572b9
    
-    pattern_list.html
+
 POST http://127.0.0.1:8000/api/patterns/
 Content-Type: application/json
 Authorization: Token 0e72bfe6571186ac8f5532376632882790a572b9
