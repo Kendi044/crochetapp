@@ -1,9 +1,10 @@
 Starting the creation of my app.
 
-           CrochetApp — Django REST API
+           Crochet API Django Project
+           
 A RECIPE MANAGEMENT API, that helps creators to share their creation to crocheters who would like to get the skill or educate people interested with crocheting.
 
-             Features
+            Features
 1. User-authentication via Django REST Framework
 2. CRUD API for crochet patterns
 3. Endpoints for listing, retrieving, updating, and deleting patterns
